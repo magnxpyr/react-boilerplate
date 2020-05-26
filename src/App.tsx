@@ -1,44 +1,16 @@
-import React, {useState} from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
-} from 'reactstrap';
-
+import React from 'react';
+import Routes from './routes';
 import './App.scss';
+import Header from "./shared/layout/header";
+import {Container} from "reactstrap";
 
-function App() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => setIsOpen(!isOpen);
-
+export const App = () => {
   return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Mass Mutual</NavbarBrand>
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className="mr-auto" navbar>
-            </Nav>
-            <Nav navbar>
-              <NavItem>
-                <NavLink href="/login">Logout</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/example">Logout</NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
+        <Header />
+        <Container>
+            <Routes />
+        </Container>
       </div>
   );
 }
