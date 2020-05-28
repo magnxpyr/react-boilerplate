@@ -1,11 +1,11 @@
 import React from 'react';
 import Routes from './routes';
-import Header from "./shared/layout/header";
+import Header from "./components/header";
 import {Container} from "reactstrap";
 import {CookiesProvider} from "react-cookie";
 import {IntlProvider} from "react-intl";
 import translations from './i18n/locales/index';
-import './App.scss';
+import './assets/App.scss';
 
 import '@formatjs/intl-pluralrules/polyfill';
 import '@formatjs/intl-pluralrules/dist/locale-data/en';
