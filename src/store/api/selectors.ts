@@ -1,27 +1,26 @@
-import {RootState} from "../model";
-import {ApiResponse} from "./model";
 import {createSelector} from "reselect";
+import {getQuerySelector} from "@redux-requests/core";
 
-export const getData = (stateSelector: (state: RootState) => ApiResponse) =>
+export const getData = (actionType: string) =>
   createSelector(
-    stateSelector,
+    getQuerySelector({type: actionType, multiple: true}),
     state => (state && state.data) || {},
   );
 
-export const getError = (stateSelector: (state: RootState) => ApiResponse) =>
+export const getError = (actionType: string) =>
   createSelector(
-    stateSelector,
+    getQuerySelector({type: actionType, multiple: true}),
     state => (state && state.error) || {},
   );
 
-export const getPending = (stateSelector: (state: RootState) => ApiResponse) =>
+export const getPending = (actionType: string) =>
   createSelector(
-    stateSelector,
-    state => (state ? state.pending : 0) > 0,
+    getQuerySelector({type: actionType, multiple: true}),
+    state => (state ? (state as any).pending : 0) > 0,
   );
 
-export const getLoaded = (stateSelector: (state: RootState) => ApiResponse) =>
+export const getLoaded = (actionType: string) =>
   createSelector(
-    stateSelector,
-    state => (state ? state.pending : 0) === 0,
+    getQuerySelector({type: actionType, multiple: true}),
+    state => (state ? (state as any).pending : 0) === 0,
   );

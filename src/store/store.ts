@@ -6,12 +6,10 @@ import axios from 'axios';
 import createSagaMiddleware from 'redux-saga'
 import {composeWithDevTools} from "redux-devtools-extension";
 
-const configureStore = (initialState = {}) => {
-  const { requestsReducer, requestsSagas, requestsMiddleware } = handleRequests({
+const configureStore = () => {
+  const { requestsReducer, requestsSagas } = handleRequests({
     driver: createDriver(axios),
-    promisify: true,
-    cache: true,
-    ssr: 'client',
+    cache: true
   });
 
   const reducers = combineReducers({
@@ -19,10 +17,9 @@ const configureStore = (initialState = {}) => {
   });
 
   const sagaMiddleware = createSagaMiddleware();
-  const middleware = [...requestsMiddleware, sagaMiddleware];
   const store = createStore(
     reducers,
-    composeWithDevTools(applyMiddleware(...middleware)),
+    composeWithDevTools(applyMiddleware(sagaMiddleware)),
   );
 
   function* rootSaga() {

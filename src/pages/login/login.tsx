@@ -4,31 +4,28 @@ import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {fetchUser} from "./actions";
 import {RootState} from "../../store/model";
-import {getUser} from "./selectors";
+import {getIsFetching, getUser} from "./selectors";
+import {Dispatch} from "redux";
 
-type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const mapStateToProps = (state: RootState) => ({
-  userData: getUser,
+  userData: getUser(state),
+  fetching: getIsFetching(state)
 });
 
-const mapDispatchToProps = {
-  fetchUser: fetchUser,
-};
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  fetchUser: () => dispatch(fetchUser()),
+});
 
 const Login: FC<Props> = ({fetchUser, userData}) => {
   
   useEffect(() => {
-    debugger;
     fetchUser();
   });
   
   useEffect(() => {
-    if((userData as any).isLoggedIn) {
-      console.log("You are logged in")
-    } else {
-      console.log("You are logged in")
-    }
+    console.log('userData: ', userData);
   }, [userData]);
   
   return (
