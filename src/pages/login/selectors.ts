@@ -1,27 +1,23 @@
 import {createSelector} from 'reselect';
-import {getQuerySelector} from "@redux-requests/core";
+import * as API from '../../store/api';
+import {getUserData} from "../../store/selectors";
+import {getQuerySelector} from "redux-saga-requests";
 import {FETCH_USER} from "./constants";
-import {UserDataState} from "./model";
-import {useSelector} from "react-redux";
 
-const userData = useSelector(getQuerySelector({ type: FETCH_USER }));
 
-export const getUserData = createSelector(
-  userData,
-  (state: UserDataState) => state.data
-);
+export const getUser = getQuerySelector({ type: FETCH_USER });
 
 export const getIsFetching = createSelector(
-  userData,
-  (state: UserDataState) => state.pending > 0,
+  API.selectors.getPending(getUserData),
+  isFetching => isFetching,
 );
 
 export const getError =  createSelector(
-  userData,
-  (state: UserDataState) => state.error || {},
+  API.selectors.getError(getUserData),
+  error => error,
   );
 
 export const getLoaded = createSelector(
-  userData,
-  (state: UserDataState) => state.pending === 0,
+  API.selectors.getLoaded(getUserData),
+  isLoaded => isLoaded,
   );

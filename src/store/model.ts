@@ -1,3 +1,5 @@
+import * as UserData from '../pages/login/index'
+
 export type RootState = {
-  userData: string;
+  [UserData.constants.NAME]: UserData.model.UserDataState;
 }

@@ -1,11 +1,12 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {createDriver} from "redux-saga-requests-axios";
 import {handleRequests} from "redux-saga-requests";
-import createSagaMiddleware from "redux-saga";
 import {all} from "q";
 import axios from 'axios';
+import createSagaMiddleware from 'redux-saga'
+import {composeWithDevTools} from "redux-devtools-extension";
 
-const configureStore = () => {
+const configureStore = (initialState = {}) => {
   const { requestsReducer, requestsSagas, requestsMiddleware } = handleRequests({
     driver: createDriver(axios),
     promisify: true,
@@ -21,7 +22,7 @@ const configureStore = () => {
   const middleware = [...requestsMiddleware, sagaMiddleware];
   const store = createStore(
     reducers,
-    applyMiddleware(middleware),
+    composeWithDevTools(applyMiddleware(...middleware)),
   );
 
   function* rootSaga() {

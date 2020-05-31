@@ -1,10 +1,8 @@
 import {FETCH_USER} from "./constants";
 
-export const fetchUser = () => {
-  return {
+export const fetchUser = () => ({
     type: FETCH_USER,
     request: {
-      url: '/getUserData',
+      url: '/user',
     },
-  }
-};
+});

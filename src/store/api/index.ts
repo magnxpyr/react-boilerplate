@@ -1,3 +1,4 @@
-import API from './api';
+import * as model from './model';
+import * as selectors from './selectors';
 
-export default API;
+export {selectors, model};

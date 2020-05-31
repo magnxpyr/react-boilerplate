@@ -3,32 +3,31 @@ import {Button, Col, Form, FormGroup, Input, Label} from 'reactstrap';
 import {FormattedMessage} from "react-intl";
 import {connect} from "react-redux";
 import {fetchUser} from "./actions";
-import {getError, getIsFetching, getLoaded, getUserData} from "./selectors";
+import {RootState} from "../../store/model";
+import {getUser} from "./selectors";
 
-type Props = typeof mapStateToProps & typeof mapDispatchToProps;
+type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
-const mapStateToProps = {
-  userData: getUserData,
-  isFetching: getIsFetching,
-  isLoaded: getLoaded,
-  errors: getError,
-};
+const mapStateToProps = (state: RootState) => ({
+  userData: getUser,
+});
 
 const mapDispatchToProps = {
   fetchUser: fetchUser,
 };
 
-const Login: FC<Props> = ({fetchUser, userData, isFetching, isLoaded, errors}) => {
+const Login: FC<Props> = ({fetchUser, userData}) => {
   
   useEffect(() => {
+    debugger;
     fetchUser();
-  });  
+  });
   
   useEffect(() => {
-    if(userData.isLoggedIn) {
-      alert("You are logged in")
+    if((userData as any).isLoggedIn) {
+      console.log("You are logged in")
     } else {
-      alert("You are logged in")
+      console.log("You are logged in")
     }
   }, [userData]);
   

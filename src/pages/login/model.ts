@@ -1,5 +1,5 @@
+// @ts-ignore
 import {ApiResponse} from "../../store/api/model";
-
 export interface UserDataState extends ApiResponse {
   data: {
     email: string;
@@ -7,3 +7,4 @@ export interface UserDataState extends ApiResponse {
     isLoggedIn: boolean;
   };
 }
+
