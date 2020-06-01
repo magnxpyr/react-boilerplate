@@ -1,15 +1,6 @@
 import React from 'react';
-import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
+import {Button, Form, FormGroup, FormText, Input, Label} from 'reactstrap';
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
-
-const mapStateToProps = (state: any) => ({
-  ...state
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  sampleAction: () => {}
-});
 
 const Home = () => {
   return (
@@ -86,4 +77,4 @@ const Home = () => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect()(Home);

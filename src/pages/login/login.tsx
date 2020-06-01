@@ -1,31 +1,24 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, memo, useEffect} from 'react';
 import {Button, Col, Form, FormGroup, Input, Label} from 'reactstrap';
 import {FormattedMessage} from "react-intl";
-import {connect} from "react-redux";
-import {fetchUser} from "./actions";
+import {connect, useDispatch} from "react-redux";
 import {RootState} from "../../store/model";
 import {getIsFetching, getUser} from "./selectors";
+import {fetchUser} from "./actions";
 
-type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+type Props = ReturnType<typeof mapStateToProps>;
 
 const mapStateToProps = (state: RootState) => ({
   userData: getUser(state),
   fetching: getIsFetching(state)
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  fetchUser: () => dispatch(fetchUser()),
-});
-
-const Login: FC<Props> = ({fetchUser, userData}) => {
+const Login: FC<Props> = memo(({userData}) => {
+  const dispatch = useDispatch();
   
   useEffect(() => {
-    fetchUser();
-  });
-  
-  useEffect(() => {
-    console.log('userData: ', userData);
-  }, [userData]);
+    dispatch(fetchUser());
+  }, []);
   
   return (
     <div>
@@ -57,6 +50,6 @@ const Login: FC<Props> = ({fetchUser, userData}) => {
       </Form>
     </div>
   );
-}
+});
 
-export default  connect(mapStateToProps, mapDispatchToProps)(Login);
+export default  connect(mapStateToProps)(Login);

@@ -9,8 +9,10 @@ import {BrowserRouter} from "react-router-dom";
 import { Provider } from 'react-redux';
 import configureStore from "./store/store";
 
+const store = configureStore();
+
 ReactDOM.render(
-  <Provider store={configureStore()}>
+  <Provider store={store}>
     <React.StrictMode>
       <BrowserRouter>
         <App/>
