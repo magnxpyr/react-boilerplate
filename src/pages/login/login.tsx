@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import {fetchUser} from "./actions";
 import {RootState} from "../../store/model";
 import {getIsFetching, getUser} from "./selectors";
-import {Dispatch} from "redux";
 
 type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
@@ -14,7 +13,7 @@ const mapStateToProps = (state: RootState) => ({
   fetching: getIsFetching(state)
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   fetchUser: () => dispatch(fetchUser()),
 });
 
